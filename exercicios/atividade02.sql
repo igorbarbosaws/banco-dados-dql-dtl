@@ -1,5 +1,5 @@
-create database senacdb;
-use senacdb;
+CREATE DATABASE senacdb;
+USE senacdb;
 
 CREATE TABLE IF NOT EXISTS `funcionarios` (
   `codigo` INT AUTO_INCREMENT PRIMARY KEY,
@@ -18,9 +18,9 @@ CREATE TABLE IF NOT EXISTS `funcionarios` (
   `salario` DECIMAL(10, 2)
 );
 
-show tables;
+SHOW TABLES;
 
-desc funcionarios;
+DESC funcionarios;
 
 INSERT INTO Funcionarios (codigo, primeiro_nome, segundo_nome, ultimo_nome, data_nasci, CPF, RG, endereco, CEP, cidade, fone, codigo_departamento, funcao, salario) 
 VALUES 
@@ -37,16 +37,53 @@ VALUES
 (11, 'André', NULL, 'Machado', '1987-04-05', '121.212.121-21', 'PE-12.121', 'Rua J, 11', '52000-000', 'Recife', '81-3444-0011', 1, 'Vendedor', 2100.00),
 (12, 'Amanda', 'Carolina', 'Ferreira', '1996-08-18', '232.323.232-32', 'SP-23.232', 'Rua K, 12', '01310-900', 'Ipojuca', '11-3200-0012', 3, 'Assistente', 1800.00);
 
-/*Questão 01*/
-select primeiro_nome, ultimo_nome from funcionarios order by ultimo_nome asc;
+/*Questão 01: */
+SELECT primeiro_nome, ultimo_nome 
+FROM funcionarios 
+ORDER BY ultimo_nome ASC;
 
 /*Questão 02*/
-select primeiro_nome, ultimo_nome, cidade from funcionarios order by cidade asc;
+SELECT *
+FROM funcionarios 
+ORDER BY cidade ASC;
 
 /*Questão 03*/
-select * concat_ws(" ", primeiro_nome, segundo_nome, ultimo_nome) from funcionarios as nome_completo group by nome_completo;
+
+SELECT CONCAT_WS(' ', primeiro_nome, segundo_nome, ultimo_nome) AS nome_completo, salario
+FROM funcionarios 
+WHERE salario > 1000 
+ORDER BY nome_completo ASC;
 
 /*Questão 04*/
+SELECT primeiro_nome, data_nasci
+FROM funcionarios
+ORDER BY data_nasci DESC;
 
+/*Questão 05*/
+SELECT CONCAT_WS(' ', primeiro_nome, segundo_nome, ultimo_nome) AS nome_completo, 
+endereco, 
+cidade,
+fone
+FROM funcionarios
+ORDER BY nome_completo ASC;
 
+/*Questão 06*/
+SELECT CONCAT_WS(' ', primeiro_nome, segundo_nome, ultimo_nome) AS nome_completo
+FROM funcionarios
+WHERE segundo_nome IS NULL;
 
+/*Questão 07*/
+SELECT CONCAT_WS(' ', primeiro_nome, segundo_nome, ultimo_nome) AS nome_completo, cidade, funcao
+FROM funcionarios
+WHERE cidade LIKE 'Ituiutaba' AND funcao = "Telefonista";
+
+/*Questão 08*/
+SELECT CONCAT_WS(' ', primeiro_nome, segundo_nome, ultimo_nome) AS nome_completo, codigo_departamento
+FROM funcionarios
+WHERE codigo_departamento LIKE '2'; 
+
+/*Questão 09*/
+SELECT CONCAT_WS(' ', primeiro_nome, segundo_nome, ultimo_nome) AS nome_completo, codigo_departamento, salario
+FROM funcionarios
+WHERE salario > 2000
+ORDER BY nome_completo ASC;
